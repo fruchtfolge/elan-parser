@@ -18,7 +18,9 @@
   "author": "Christoph Pahmeyer <christoph.pahmeyer@uni-bonn.de>",
   "license": "MIT",
   "dependencies": {
+    "@turf/helpers": "^6.1.4",
     "fast-xml-parser": "^3.12.5",
-    "proj4": "^2.5.0"
+    "proj4": "^2.5.0",
+    "turf-polygon": "^1.0.3"
   }
 }
