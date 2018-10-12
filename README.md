@@ -2,6 +2,11 @@
 A simple parsing library for the ELAN NRW XML files.
 Consumed by the Fruchtfolge model.
 
+## Installation
+```
+npm install elan-parser
+```
+
 ## Usage
 Standalone usage
 ```js
@@ -19,7 +24,7 @@ try {
 } 
 ```
 
-In combination with the [ELAN-API](https://github.com/fruchtfolge/elan-api)
+In combination with the [elan-api](https://github.com/fruchtfolge/elan-api)
 ```js
 const elanGet = require('elan-api');
 const parser = require('elan-parser')
