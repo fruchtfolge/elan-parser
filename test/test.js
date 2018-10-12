@@ -1,23 +1,31 @@
 const elan = require('../index')
 const fs = require('fs')
+const path = require('path')
+const assert = require('assert')
 
-const xml = fs.readFileSync('test/2016.xml', 'utf8')
-const gml = fs.readFileSync('test/2016.gml', 'utf8')
+function extension(element, extFilter) {
+  var extName = path.extname(element)
+  return extName === '.' + extFilter
+}
 
-/*
-elan.parseXML(xml)
-  .then(res => {
-    console.log(res)
+// read all test xml / gml files and compare to expected results
+fs.readdir('test/data', (err, files) => {
+  if (err) throw new Error(err)
+  const xmlFiles = files.filter((file) => {return extension(file,'xml')})
+  xmlFiles.forEach(file => {
+    try {
+      const fileName = path.basename(file, '.xml')
+      const xml = fs.readFileSync(`test/data/${file}`,'utf8')
+      const gml = fs.readFileSync(`test/data/${fileName}.gml`,'utf8')
+      const data = elan.join(elan.parseXML(xml), elan.parseGML(gml))
+      
+      // Uncomment in order to create results to compare to
+      //fs.writeFileSync(`test/results/${fileName}.json`,JSON.stringify(data))
+      
+      const expected = JSON.parse(fs.readFileSync(`test/results/${fileName}.json`,'utf8'))
+      assert.deepEqual(data,expected)
+    } catch (e) {
+      throw new Error(e)
+    } 
   })
-  .catch(err => {
-    console.log(err)
-  })
-  */
-  
-elan.parseGML(gml)
-  .then(res => {
-    console.log(res)
-  })
-  .catch(err => {
-    console.log(err)
-  })
+})
