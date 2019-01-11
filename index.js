@@ -24,10 +24,10 @@ module.exports = {
     
     if (utils.getSafe(() => json.nn.land.parzelle)) { 
       return json.nn.land.parzelle.map(field => {
-        return Object.assign(basis,field)
+        return Object.assign(JSON.parse(JSON.stringify(basis)),field)
       })
     } else {
-      return new Error('No fields found in XML.')
+      throw new Error('No fields found in XML.')
     }
   },
   
@@ -75,8 +75,7 @@ module.exports = {
     return xml.map(field => {
       const geometry = _.find(gml, utils.getSafe(() => { field.schlag.nummer }))
       if (!geometry) return field
-
-      return Object.assign(field,geometry)
+      return Object.assign(field,geometry.geometry)
     })
   }
   
