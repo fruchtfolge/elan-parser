@@ -1,4 +1,4 @@
-const elan = require('../index')
+const parser = require('../index')
 const fs = require('fs')
 const path = require('path')
 const assert = require('assert')
@@ -7,6 +7,7 @@ function extension(element, extFilter) {
   var extName = path.extname(element)
   return extName === '.' + extFilter
 }
+
 
 // read all test xml / gml files and compare to expected results
 fs.readdir('test/data', (err, files) => {
@@ -17,7 +18,7 @@ fs.readdir('test/data', (err, files) => {
       const fileName = path.basename(file, '.xml')
       const xml = fs.readFileSync(`test/data/${file}`,'utf8')
       const gml = fs.readFileSync(`test/data/${fileName}.gml`,'utf8')
-      const data = elan.join(elan.parseXML(xml), elan.parseGML(gml))
+      const data = parser.join(parser.parseXML(xml), parser.parseGML(gml))
       
       // Uncomment in order to create results to compare to
       //fs.writeFileSync(`test/results/${fileName}.json`,JSON.stringify(data))
@@ -29,3 +30,16 @@ fs.readdir('test/data', (err, files) => {
     } 
   })
 })
+
+/*
+const elanGet = require('../../elan-api/index.js')
+
+async function getLatestInvekosData(farmNo, pass) {
+  const xml = await elanGet(farmNo, pass)
+  const gml = await elanGet(farmNo, pass, {type: 'Geometrien'})
+  
+  return parser.join(parser.parseXML(xml), parser.parseGML(gml))
+}
+
+getLatestInvekosData('057540125701', '222222')
+*/
