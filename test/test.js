@@ -21,10 +21,10 @@ fs.readdir('test/data', (err, files) => {
       const data = parser.join(parser.parseXML(xml), parser.parseGML(gml))
 
       // Uncomment in order to create results to compare to
-      fs.writeFileSync(`test/results/${fileName}.json`,JSON.stringify(data))
+      // fs.writeFileSync(`test/results/${fileName}.json`,JSON.stringify(data))
 
-      //const expected = JSON.parse(fs.readFileSync(`test/results/${fileName}.json`,'utf8'))
-      //assert.deepEqual(data,expected)
+      const expected = JSON.parse(fs.readFileSync(`test/results/${fileName}.json`,'utf8'))
+      assert.deepEqual(data,expected)
     } catch (e) {
       throw new Error(e)
     }
