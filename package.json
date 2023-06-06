@@ -19,7 +19,7 @@
   "license": "MIT",
   "dependencies": {
     "@turf/helpers": "^6.1.4",
-    "fast-xml-parser": "^3.12.5",
+    "fast-xml-parser": "^4.2.4",
     "proj4": "^2.5.0"
   }
 }
